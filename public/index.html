@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WorkApp">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Chonburi|Roboto|Stardos+Stencil" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="workapp.js"></script>
+    <meta charset="UTF-8">
+    <title>Jobs</title>
+</head>
+<body>
+<div class="container" ng-controller="WorkAppController">
+    <h1 align="left">Work Log <a class="pull-right"><span class="glyphicon glyphicon-tint"></span></a></h1>
+    <div class="form-group row">
+        <div class="col-xs-3">
+            <input ng-model="post.site" class="form-control" placeholder="site">
+        </div>
+        <div class="col-xs-3">
+            <input ng-model="post.volume" class="form-control" placeholder="volume">
+        </div>
+        <div class="col-xs-3">
+            <input ng-model="post.rate" class="form-control" placeholder="rate">
+        </div>
+        <div class="col-xs-3" class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Reschedule</a></li>
+                <li><a href="#">Flag</a></li>
+            </ul>
+        </div>
+    </div>
+    <textarea ng-model="post.body" class="form-control" rows="7" placeholder="Job Description"></textarea>
+    <button ng-click="createPost(post)" class="btn btn-primary btn-block">Post</button>
+    <div ng-repeat="post in posts">
+        <h3>
+             {{ post.site }}
+            <a ng-click="editPost(post._id)" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a ng-click="deletePost(post._id)" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+        </h3>
+        <div class="form-group row">
+        <em>
+            <div class="col-xs-4">Volume: {{ post.volume }} </div>
+            <div class="col-xs-4">Rate: {{ post.rate }} </div>
+            <div class="col-xs-4">Posted: {{ post.posted }} </div>
+        </em>
+        </div>
+
+        <div class="well">
+            <br>
+            <p>
+                {{ post.body }}
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

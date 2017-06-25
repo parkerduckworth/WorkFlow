@@ -6,3 +6,6 @@ Browser Based UI to manage day-to-day workflow
 ## Dependencies 
 
 ## Bugs
+
+* editPost
+    * when editing then posting -> bad request error thrown.
