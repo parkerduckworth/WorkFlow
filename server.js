@@ -13,9 +13,11 @@ mongoose.connect('mongodb://localhost/jobarchive');
 
 var PostSchema = mongoose.Schema({
     site: String,
-    volume: String,
-    rate: String,
+    volume: Number,
+    stroke: Number,
+    speed: Number,
     body: String,
+    flagged: Boolean,
     posted: {type: Date, default: Date.now}
 }, {collection: 'post'});
 

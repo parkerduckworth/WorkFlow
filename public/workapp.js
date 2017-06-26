@@ -13,6 +13,7 @@
         $scope.createPost = createPost;
         $scope.deletePost = deletePost;
         $scope.editPost = editPost;
+        $scope.flagPost = flagPost;
 
         function init(){
             getAllPosts();
@@ -41,6 +42,9 @@
                 .then(clearTextEntry);
         }
 
+        // Before you continue to define any other functions,
+        // This function needs to be fleshed out. The update
+        // Logic is incorrect.
         function editPost(postId){
             $http
                 .get("/api/job/"+postId)
@@ -51,6 +55,10 @@
 
         function clearTextEntry(){
             $scope.post = '';
+        }
+
+        function flagPost(){
+            $http.get("/api/job");
         }
     }
 })();
