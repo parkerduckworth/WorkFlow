@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/jobarchive');
 
+
 var PostSchema = mongoose.Schema({
     site: String,
     volume: Number,
@@ -21,8 +22,22 @@ var PostSchema = mongoose.Schema({
     posted: {type: Date, default: Date.now}
 }, {collection: 'post'});
 
+
+var SiteSchema = mongoose.Schema({
+    site_name: String,
+    created_on: {type: Date, default: Date.now},
+    product: String,
+    volume_current: Number,
+    location: String,
+    rate: String,
+    capacity: Number,
+    isInService: {type: Boolean, default: true}
+}, {collection: 'site'});
+
 // Passing Post Schema as part of the construction of PostModel
 var PostModel = mongoose.model("PostModel", PostSchema);
+
+var SiteModel = mongoose.model("SiteModel", SiteSchema);
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -32,7 +47,30 @@ app.post("/api/job", createPost);
 app.get("/api/job", getAllPosts);
 app.get("/api/job/:id", getPostById);
 
+app.put("/api/job/:id", updatePost);
+
 app.delete("/api/job/:id", deletePost);
+
+app.post("/api/site", createSite);
+app.get("/api/site", getAllSites);
+app.get("/api/site/:id", getSiteById);
+app.delete("/api/site/:id", deleteSite);
+
+function updatePost(req, res){
+    var postId = req.params.id;
+    var post = req.body;
+    PostModel
+        .update({_id: postId},{
+            site: post.site,
+            body: post.body,
+        })
+        .then(function(status){
+            res.sendStatus(200);
+        },
+        function(err){
+            res.sendStatus(400);
+        });
+}
 
 function deletePost(req, res){
     var postId = req.params.id;
@@ -61,6 +99,19 @@ function getAllPosts(req, res){
         );
 }
 
+function getAllSites(req, res){
+   SiteModel
+       .find()
+       .then(
+           function(sites){
+               res.json(sites);
+           },
+           function(err){
+               res.sendStatus(400);
+           }
+       );
+}
+
 function getPostById(req, res){
     var postId = req.params.id;
     PostModel
@@ -85,6 +136,48 @@ function createPost(request, response){
             },
             function(error){
                 response.sendStatus(400);
+            }
+        );
+}
+
+function createSite(req, res){
+    var site = req.body;
+    SiteModel
+        .create(site)
+        .then(
+            function(siteObj){
+                res.json(site);
+            },
+            function(error){
+                res.sendStatus(400);
+            }
+        );
+}
+
+function getSiteById(req, res){
+    var siteId = req.params.id;
+    SiteModel
+        .findById(siteId)
+        .then(
+            function(site){
+                res.json(site);
+            },
+            function(err){
+                res.sendStatus(400);
+            }
+        );
+}
+
+function deleteSite(req, res){
+    var siteId = req.params.id;
+    SiteModel
+        .remove({_id: siteId})
+        .then(
+            function(status){
+                res.sendStatus(200);
+            },
+            function(){
+                res.sendStatus(400);
             }
         );
 }

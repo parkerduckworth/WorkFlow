@@ -14,6 +14,9 @@
         $scope.deletePost = deletePost;
         $scope.editPost = editPost;
         $scope.flagPost = flagPost;
+        $scope.updatePost = updatePost;
+        $scope.clearPost = clearPost;
+
 
         function init(){
             getAllPosts();
@@ -24,8 +27,9 @@
             $http
                 .post("/api/job", post)
                 .success(getAllPosts)
-                .then(clearTextEntry);
+                .then(clearPost);
         }
+
 
         function getAllPosts(){
             $http
@@ -38,8 +42,7 @@
         function deletePost(postId){
             $http
                 .delete("/api/job/"+postId)
-                .success(getAllPosts)
-                .then(clearTextEntry);
+                .success(getAllPosts);
         }
 
         // Before you continue to define any other functions,
@@ -53,12 +56,21 @@
                 });
         }
 
-        function clearTextEntry(){
+        function updatePost(post){
+            console.log(post);
+            $http
+                .put("/api/job/"+post._id, post)
+                .success(getAllPosts);
+        }
+
+        function clearPost() {
             $scope.post = '';
         }
 
         function flagPost(){
             $http.get("/api/job");
         }
+
+
     }
 })();
