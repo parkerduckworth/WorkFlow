@@ -15,7 +15,7 @@
     function SiteAppController($scope, $http){
         $scope.createSite = createSite;
         $scope.deleteSite = deleteSite;
-        $scope.clearPost = clearPost;
+        $scope.clearSite = clearSite;
 
         function init(){
             getAllSites();
@@ -25,7 +25,8 @@
         function createSite(site){
             $http
                 .post("/api/site", site)
-                .success(getAllSites);
+                .success(getAllSites)
+                .then(clearSite);
         }
 
         function getAllSites(){
@@ -42,8 +43,9 @@
                 .success(getAllSites);
         }
 
-        function clearPost() {
-            $scope.site_name = '';
+
+        function clearSite() {
+            $scope.site = '';
         }
 
     }
