@@ -2,9 +2,11 @@
  * Created by ericd34n on 6/24/17.
  */
 
+//const http = require('http');
+
 var express = require('express');
 var app = express();
-var port = 3000;
+const port = 3000;
 
 var bodyParser = require('body-parser');
 
@@ -40,6 +42,9 @@ var PostModel = mongoose.model("PostModel", PostSchema);
 var SiteModel = mongoose.model("SiteModel", SiteSchema);
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.static('work'));
+app.use(express.static('sites'));
+app.use(express.static('orders'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -55,6 +60,18 @@ app.post("/api/site", createSite);
 app.get("/api/site", getAllSites);
 app.get("/api/site/:id", getSiteById);
 app.delete("/api/site/:id", deleteSite);
+
+app.get("api/sites/:site_name", getSiteByName);
+
+
+
+/**
+ * WARNING: DO NOT LEAVE THIS GETALLSITES FUNCTION HERE
+ * DEFINE A NEW GETALLORDERS FUNCTION WITH ITS OWN LOGIC
+ * THIS IS PURELY HERE TO TEST HTML LAYOUT AS WELL AS
+ * THE ORDERS CONTROLLER...
+ */
+app.get('/api/site', getAllSites);
 
 function updatePost(req, res){
     var postId = req.params.id;
@@ -158,6 +175,20 @@ function getSiteById(req, res){
     var siteId = req.params.id;
     SiteModel
         .findById(siteId)
+        .then(
+            function(site){
+                res.json(site);
+            },
+            function(err){
+                res.sendStatus(400);
+            }
+        );
+}
+
+function getSiteByName(req, res){
+    var siteName = req.params.site_name;
+    SiteModel
+        .findById(siteName)
         .then(
             function(site){
                 res.json(site);
