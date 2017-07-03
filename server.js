@@ -13,6 +13,9 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/jobarchive');
 
+var mongojs = require('mongojs');
+var db = mongojs('mongodb://eds:eds13**@ds145952.mlab.com:45952/master', ['sites']);
+
 
 var PostSchema = mongoose.Schema({
     site: String,
@@ -61,7 +64,13 @@ app.get("/api/site", getAllSites);
 app.get("/api/site/:id", getSiteById);
 app.delete("/api/site/:id", deleteSite);
 
-app.get("api/sites/:site_name", getSiteByName);
+app.get("/api/ml", getMlSites);
+
+
+db.sites.find(function (res, err, docs) {
+    // docs is an array of all the documents in mycollection
+    console.log(docs);
+});
 
 
 
@@ -129,6 +138,21 @@ function getAllSites(req, res){
        );
 }
 
+/*=====================================
+    Okay the Mlab db is up and running
+    now you should go fix some stuff
+    learn some stuff...
+
+ ======================================*/
+function getMlSites(req, res){
+    db.sites.find(function(err, tasks){
+        if(err){
+            res.send(err);
+        }
+        res.json(tasks);
+    });
+}
+
 function getPostById(req, res){
     var postId = req.params.id;
     PostModel
@@ -175,20 +199,6 @@ function getSiteById(req, res){
     var siteId = req.params.id;
     SiteModel
         .findById(siteId)
-        .then(
-            function(site){
-                res.json(site);
-            },
-            function(err){
-                res.sendStatus(400);
-            }
-        );
-}
-
-function getSiteByName(req, res){
-    var siteName = req.params.site_name;
-    SiteModel
-        .findById(siteName)
         .then(
             function(site){
                 res.json(site);
