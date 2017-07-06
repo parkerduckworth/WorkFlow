@@ -66,14 +66,6 @@ app.delete("/api/site/:id", deleteSite);
 
 app.get("/api/ml", getMlSites);
 
-
-db.sites.find(function (res, err, docs) {
-    // docs is an array of all the documents in mycollection
-    console.log(docs);
-});
-
-
-
 /**
  * WARNING: DO NOT LEAVE THIS GETALLSITES FUNCTION HERE
  * DEFINE A NEW GETALLORDERS FUNCTION WITH ITS OWN LOGIC
