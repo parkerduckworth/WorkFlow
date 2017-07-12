@@ -14,7 +14,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/jobarchive');
 
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://eds:eds13**@ds145952.mlab.com:45952/master', ['sites']);
+var db = mongojs('connection to cloud db DO NOT LEAVE THIS VALUE IN 'PRODUCTION' CODE');
 
 
 var PostSchema = mongoose.Schema({
@@ -51,28 +51,20 @@ app.use(express.static('orders'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+/* Job Postings */ 
 app.post("/api/job", createPost);
 app.get("/api/job", getAllPosts);
 app.get("/api/job/:id", getPostById);
-
 app.put("/api/job/:id", updatePost);
-
 app.delete("/api/job/:id", deletePost);
 
+/* Interface to add and update 'sites' */ 
 app.post("/api/site", createSite);
 app.get("/api/site", getAllSites);
 app.get("/api/site/:id", getSiteById);
 app.delete("/api/site/:id", deleteSite);
 
 app.get("/api/ml", getMlSites);
-
-/**
- * WARNING: DO NOT LEAVE THIS GETALLSITES FUNCTION HERE
- * DEFINE A NEW GETALLORDERS FUNCTION WITH ITS OWN LOGIC
- * THIS IS PURELY HERE TO TEST HTML LAYOUT AS WELL AS
- * THE ORDERS CONTROLLER...
- */
-app.get('/api/site', getAllSites);
 
 function updatePost(req, res){
     var postId = req.params.id;
@@ -131,10 +123,10 @@ function getAllSites(req, res){
 }
 
 /*=====================================
-    Okay the Mlab db is up and running
-    now you should go fix some stuff
-    learn some stuff...
-
+    Okay the CLOUD db is up and running
+    Hit a wall with controllers...
+    Diving down the rabbit hole. 
+    will be back soon. 
  ======================================*/
 function getMlSites(req, res){
     db.sites.find(function(err, tasks){
