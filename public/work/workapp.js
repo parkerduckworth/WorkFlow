@@ -1,9 +1,6 @@
 /**
  * Created by ericd34n on 6/24/17.
  */
-/**
- * Created by ericd34n on 6/22/17.
- */
 (function(){
     angular
         .module("WorkApp", [])
@@ -45,9 +42,6 @@
                 .success(getAllPosts);
         }
 
-        // Before you continue to define any other functions,
-        // This function needs to be fleshed out. The update
-        // Logic is incorrect.
         function editPost(postId){
             $http
                 .get("/api/job/"+postId)
@@ -63,14 +57,9 @@
                 .success(getAllPosts);
         }
 
+        // Research on Scope 
         function clearPost() {
             $scope.post = '';
         }
-
-        function flagPost(){
-            $http.get("/api/job");
-        }
-
-
     }
 })();
