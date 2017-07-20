@@ -3,8 +3,10 @@ Browser Based UI to manage day-to-day workflow
 
 ## Description
 
-<small>MongoDB | Express.js | Angular | Node.js </small>
-This is a concept app. The purpose was to show that 'there are better ways' of doing thing. 
+_MongoDB | Express.js | Angular | Node.js_
+
+This is a concept app.
+The purpose was to show that 'there are better ways' of doing thing. 
 
 ## Dependencies 
 
