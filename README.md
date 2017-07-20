@@ -6,7 +6,15 @@ Browser Based UI to manage day-to-day workflow
 _MongoDB | Express.js | Angular | Node.js_
 
 This is a concept app.
-The purpose was to show that 'there are better ways' of doing thing. 
+The purpose was to show that 'there are better ways' of doing things. Essentially this is a small CRUD style 
+app in which you can: 
+
+* create job sites
+* read job site data (from MongoDB, both locally and from Mlab)
+* update job site data
+* delete job site data 
+
+
 
 ## Dependencies 
 
