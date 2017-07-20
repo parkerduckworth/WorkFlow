@@ -19,8 +19,26 @@ Cd into that folder and run:
 $ npm init 
 ```
 
+Add the following to your package.json file: 
 
+```json
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.3",
+    "jquery-typeahead": "^2.8.0",
+    "mongojs": "^2.4.0",
+    "mongoose": "^4.10.8"
+  }
+```
 
+Then returnt to the terminal to run: 
+
+```
+$ npm install
+``` 
+
+You can also manually install the packages individually if you'd like. 
 
 * See package.json
 
