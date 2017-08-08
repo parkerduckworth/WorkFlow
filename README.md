@@ -58,6 +58,7 @@ You can also manually install the packages individually if you'd like.
     * ~~when editing then posting -> bad request error thrown.~~
 * missing some knowledge about angular 
    * Actually, the issue is not updating the model and then display updated content.
+   * Issue is with $scope and, hook up portion of code to store results in MongoDB--will fix issue. 
 
 ## Future Feature(s)
 
