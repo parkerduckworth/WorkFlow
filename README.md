@@ -1,5 +1,5 @@
 # WorkFlow
-Browser Based UI to manage day-to-day workflow
+Hacked up app to support day to day workflow for field ops. 
 
 ## Description
 
