@@ -1,5 +1,11 @@
 # WorkFlow
-Hacked up app to support day to day workflow for field ops. 
+Hacked up app to support day to day workflow for field ops. This 'app' if you will was my initial foray into the web. 
+I wanted to update a few things and, well, I was very concerned by some of the code. It served its purpose as an initial 
+dive into RESTful practices. 
+
+I have since learned much more on the topic and would not consider this an exemplary model for what your code/projects should look like. With a new semester approaching I am concerned I won't get to continue to improve these skills. However, I am going to hack together another MEAN project within the next month. 
+
+That being said, this is what I did. This is the exposure I got. Thanks, 
 
 ## Description
 
