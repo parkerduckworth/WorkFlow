@@ -1,6 +1,3 @@
-/**
- * Created by ericd34n on 6/29/17.
- */
 
 (function(){
     angular

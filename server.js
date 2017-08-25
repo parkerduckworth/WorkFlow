@@ -62,15 +62,14 @@ app.use(express.static('orders'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+
 // Jobs
 app.post("/api/job", createPost);
 
 app.get("/api/job", getAllPosts);
 app.get("/api/job/:id", getPostById);
-
 app.put("/api/job/:id", updatePost);
 app.delete("/api/job/:id", deletePost);
-
 
 // Sites
 app.post("/api/site", createSite);
@@ -130,6 +129,7 @@ function deleteDelivery(req, res){
         );
 }
 
+
 function updatePost(req, res){
     const postId = req.params.id;
     const post = req.body;
@@ -187,10 +187,10 @@ function getAllSites(req, res){
 }
 
 /*=====================================
-    Okay the Mlab db is up and running
-    now you should go fix some stuff
-    learn some stuff...
-
+    Okay the CLOUD db is up and running
+    Hit a wall with controllers...
+    Diving down the rabbit hole. 
+    will be back soon. 
  ======================================*/
 function getMlSites(req, res){
     db.sites.find(function(err, tasks){

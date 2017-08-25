@@ -1,6 +1,3 @@
-/**
- * Created by ericd34n on 6/24/17.
- */
 
 (function(){
     angular
@@ -43,10 +40,7 @@
                 .success(getAllPosts);
         }
 
-        // Before you continue to define any other functions,
-        // This function needs to be fleshed out. The update
-        // Logic is incorrect.
-        // Also what are you doing using a get request to PUT???
+
         function editPost(postId){
             $http
                 .put("/api/job/"+postId)
@@ -62,14 +56,9 @@
                 .success(getAllPosts);
         }
 
+        // Research on Scope 
         function clearPost() {
             $scope.post = '';
         }
-
-        function flagPost(){
-            $http.get("/api/job");
-        }
-
-
     }
 })();
