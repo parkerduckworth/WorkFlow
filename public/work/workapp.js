@@ -1,9 +1,7 @@
 /**
  * Created by ericd34n on 6/24/17.
  */
-/**
- * Created by ericd34n on 6/22/17.
- */
+
 (function(){
     angular
         .module("WorkApp", [])
@@ -48,9 +46,10 @@
         // Before you continue to define any other functions,
         // This function needs to be fleshed out. The update
         // Logic is incorrect.
+        // Also what are you doing using a get request to PUT???
         function editPost(postId){
             $http
-                .get("/api/job/"+postId)
+                .put("/api/job/"+postId)
                 .success(function(post){
                     $scope.post = post;
                 });
@@ -59,7 +58,7 @@
         function updatePost(post){
             console.log(post);
             $http
-                .put("/api/job/"+post._id, post)
+                .get("/api/job/"+post._id, post)
                 .success(getAllPosts);
         }
 

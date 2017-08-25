@@ -1,12 +1,7 @@
 /**
  * Created by ericd34n on 6/29/17.
  */
-/**
- * Created by ericd34n on 6/24/17.
- */
-/**
- * Created by ericd34n on 6/22/17.
- */
+
 (function(){
     angular
         .module("SiteApp", [])

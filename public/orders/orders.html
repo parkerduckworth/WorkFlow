@@ -60,13 +60,13 @@
                     <td>Submit</td>
                 </tr>
                 <tr>
-                    <td><input id="SV" type="text" placeholder="Start Volume"></td>
-                    <td><input id="EV" type="text" placeholder="End Volume"></td>
-                    <td><input id="DV" disabled="disabled"></td>
+                    <td><input id="startValue" type="text" placeholder="Start Volume"></td>
+                    <td><input id="endValue" type="text" placeholder="End Volume"></td>
+                    <td><input id="deliveredValue" disabled="disabled"></td>
                     <td><button class="btn btn-primary" >Edit</button></td>
                     <!--OK, this function only works for the first element?. This is just a fundamental
                      misunderstand or just lack of knowledge of JS, HTML, uh, everything here. -->
-                    <td><button onclick="console.log(setDeliveredVolume('DV', document.getElementById('SV').value, document.getElementById('EV').value))" class="btn btn-success" >Submit</button></td>
+                    <td><button onclick="" class="btn btn-success" >Submit</button></td>
                 </tr>
             </table>
         </div>
@@ -76,7 +76,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-<script src="orderLogic.js"></script>
 <script src="orderapp.js"></script>
 </body>
 </html>

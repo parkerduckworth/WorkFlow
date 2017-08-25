@@ -2,22 +2,18 @@
  * Created by ericd34n on 6/24/17.
  */
 
-//const http = require('http');
-
-var express = require('express');
-var app = express();
+let express = require('express');
+let app = express();
 const port = 8080;
 
-var bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/jobarchive');
 
-var mongojs = require('mongojs');
-var db = mongojs('mongodb://eds:eds13**@ds145952.mlab.com:45952/master', ['sites']);
-
-
-var PostSchema = mongoose.Schema({
+// Figure out how to just include these models from
+// model files.
+const PostSchema = mongoose.Schema({
     site: String,
     volume: Number,
     stroke: Number,
@@ -28,7 +24,7 @@ var PostSchema = mongoose.Schema({
 }, {collection: 'post'});
 
 
-var SiteSchema = mongoose.Schema({
+const SiteSchema = mongoose.Schema({
     site_name: String,
     created_on: {type: Date, default: Date.now},
     product: String,
@@ -39,44 +35,104 @@ var SiteSchema = mongoose.Schema({
     isInService: {type: Boolean, default: true}
 }, {collection: 'site'});
 
-// Passing Post Schema as part of the construction of PostModel
-var PostModel = mongoose.model("PostModel", PostSchema);
 
-var SiteModel = mongoose.model("SiteModel", SiteSchema);
+const DeliverySchema = mongoose.Schema({
+    site_name: String,
+    created_on: {type: Date, default: Date.now},
+    product: String,
+    location: String,
+    start_volume: Number,
+    end_volume: Number,
+    delivered_quantity: Number
+}, {collection: 'deliveries'});
+
+// Passing Post Schema as part of the construction of PostModel
+const PostModel = mongoose.model("PostModel", PostSchema);
+
+const SiteModel = mongoose.model("SiteModel", SiteSchema);
+
+const DeliveryModel = mongoose.model("DeliveryModel", DeliverySchema);
 
 app.use(express.static(__dirname + '/public'));
+
+// Static Paths
 app.use(express.static('work'));
 app.use(express.static('sites'));
 app.use(express.static('orders'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+// Jobs
 app.post("/api/job", createPost);
+
 app.get("/api/job", getAllPosts);
 app.get("/api/job/:id", getPostById);
 
 app.put("/api/job/:id", updatePost);
-
 app.delete("/api/job/:id", deletePost);
 
+
+// Sites
 app.post("/api/site", createSite);
 app.get("/api/site", getAllSites);
 app.get("/api/site/:id", getSiteById);
 app.delete("/api/site/:id", deleteSite);
 
+// Deliveries
+app.post("/api/site/delivery", deliver);
+app.get("/api/sites/deliveries", getAllDeliveries);
+//app.get("/api/site/delivery/:id", getDeliveryById);
+app.delete("/api/site/delivery/:id", deleteDelivery);
+
+
 app.get("/api/ml", getMlSites);
 
-/**
- * WARNING: DO NOT LEAVE THIS GETALLSITES FUNCTION HERE
- * DEFINE A NEW GETALLORDERS FUNCTION WITH ITS OWN LOGIC
- * THIS IS PURELY HERE TO TEST HTML LAYOUT AS WELL AS
- * THE ORDERS CONTROLLER...
- */
-app.get('/api/site', getAllSites);
+
+function deliver(request, response){
+    const delivery = request.body;
+    DeliveryModel
+        .create(delivery)
+        .then(
+            function (postObj) {
+                response.json(delivery);
+            },
+            function(error){
+                response.sendStatus(400);
+            }
+        );
+}
+
+
+function getAllDeliveries(req, res){
+    DeliveryModel
+        .find()
+        .then(
+            function(delivery){
+                res.json(delivery);
+            },
+            function(err){
+                res.sendStatus(400);
+            }
+        );
+}
+
+function deleteDelivery(req, res){
+    const deliveryId = req.params.id;
+    DeliveryModel
+        .remove({_id: deliveryId})
+        .then(
+            function(status){
+                res.sendStatus(200);
+            },
+            function(){
+                res.sendStatus(400);
+            }
+        );
+}
 
 function updatePost(req, res){
-    var postId = req.params.id;
-    var post = req.body;
+    const postId = req.params.id;
+    const post = req.body;
     PostModel
         .update({_id: postId},{
             site: post.site,
@@ -91,7 +147,7 @@ function updatePost(req, res){
 }
 
 function deletePost(req, res){
-    var postId = req.params.id;
+    const postId = req.params.id;
     PostModel
         .remove({_id: postId})
         .then(
@@ -146,7 +202,7 @@ function getMlSites(req, res){
 }
 
 function getPostById(req, res){
-    var postId = req.params.id;
+    const postId = req.params.id;
     PostModel
         .findById(postId)
         .then(
@@ -160,7 +216,7 @@ function getPostById(req, res){
 }
 
 function createPost(request, response){
-    var post = request.body;
+    const post = request.body;
     PostModel
         .create(post)
         .then(
@@ -174,7 +230,8 @@ function createPost(request, response){
 }
 
 function createSite(req, res){
-    var site = req.body;
+    const site = req.body;
+    console.log(site);
     SiteModel
         .create(site)
         .then(
@@ -188,7 +245,7 @@ function createSite(req, res){
 }
 
 function getSiteById(req, res){
-    var siteId = req.params.id;
+    const siteId = req.params.id;
     SiteModel
         .findById(siteId)
         .then(
@@ -202,7 +259,7 @@ function getSiteById(req, res){
 }
 
 function deleteSite(req, res){
-    var siteId = req.params.id;
+    const siteId = req.params.id;
     SiteModel
         .remove({_id: siteId})
         .then(
