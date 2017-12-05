@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="SiteApp">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Chonburi|Roboto|Stardos+Stencil" rel="stylesheet">
+    <link rel="stylesheet" href="../work/style.css">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>WorkFlow: Sites</title>
+</head>
+<body>
+<div class="container" ng-controller="SiteAppController">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">WorkFlow</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/work/work.html">Jobs</a></li>
+                    <li><a href="/orders/orders.html">Orders</a></li>
+                    <li><a href="/sites/sites.html">Sites</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+    <h1 id="heading1" align="left">Site List<p class="pull-right"><span class="glyphicon glyphicon-tint"></span></p></h1>
+    <hr>
+    <form>
+    <div class="form-group row">
+        <div class="col-xs-4">
+            <input ng-model="site.site_name" class="form-control" placeholder="site name">
+        </div>
+        <div class="col-xs-4">
+            <input ng-model="site.product" class="form-control" placeholder="product">
+        </div>
+        <div class="col-xs-4">
+            <input ng-model="site.capacity" class="form-control" placeholder="capacity">
+        </div>
+    </div>
+    <div  class="form-group row">
+        <div class="col-xs-4">
+            <input ng-model="site.location" class="form-control" placeholder="location">
+        </div>
+        <div class="col-xs-4">
+            <input ng-model="site.isInService" class="form-control" placeholder="In Service">
+        </div>
+        <div class="col-xs-4">
+            <input ng-model="site.rate" class="form-control" placeholder="Rate">
+        </div>
+    </div>
+    </form>
+    <br>
+    <button ng-click="createSite(site)" onclick="" class="btn btn-success btn-block">Create</button>
+    <br>
+    <hr>
+    <div ng-repeat="site in sites">
+        <div class="form-group row">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Site       </th>
+                    <th>Product    </th>
+                    <th>Location   </th>
+                    <th>In Service </th>
+                    <th>Capacity   </th>
+                    <th>Rate       </th>
+                    <th>Created On </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td align="left">{{site.site_name}}</td>
+                    <td align="left">{{site.product}}</td>
+                    <td align="left">{{site.location}}</td>
+                    <td align="left"><input ng-checked="site.isInService" type="checkbox" id="isInService"></td>
+                    <td align="left">{{site.capacity}}</td>
+                    <td align="left">{{site.rate}}</td>
+                    <td align="left">{{site.created_on.slice(0, 10)}}</td>
+                    <td><a href="/" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                    <td align="left"><a ng-click="deleteSite(site._id)" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="siteapp.js"></script>
+</body>
+</html>

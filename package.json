@@ -1,0 +1,21 @@
+{
+  "name": "workflow",
+  "version": "1.0.0",
+  "description": "Browser based UI for tracking day to day work flow",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Eric Dean (ericd34n)",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.3",
+    "jquery-typeahead": "^2.8.0",
+    "mongojs": "^2.4.0",
+    "mongoose": "^4.10.8"
+  },
+  "devDependencies": {}
+}
